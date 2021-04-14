@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  service-a:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: service-b
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: service-b
+      SERVICE_TAGS: dev
+    working_dir: /var/www/service-b
+    volumes:
+      - ./src/:/var/www/service-b
+
+networks:
+  default:
+    external:
+      name: helloprint-network

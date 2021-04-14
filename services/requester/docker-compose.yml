@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  requester:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: requester
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: requerster
+      SERVICE_TAGS: dev
+    working_dir: /var/www/requester
+    volumes:
+      - ./src/:/var/www/requester
+
+networks:
+  default:
+    external:
+      name: helloprint-network

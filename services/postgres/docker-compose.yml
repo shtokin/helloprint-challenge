@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10
+    environment:
+      - POSTGRES_DB=helloprint-test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - PGDATA=/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - ./dumps/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database:/pgdata
+    networks:
+      - helloprint-network
+
+volumes:
+  dumps:
+
+networks:
+  helloprint-network:
